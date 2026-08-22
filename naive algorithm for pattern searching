@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class NaivePatternSearch {
+
+  public static List<Integer> search(String text, String pattern) {
+    List<Integer> result = new ArrayList<>();
+    int n = text.length();
+    int m = pattern.length();
+
+    // Slide the pattern over text one by one up to (n - m)
+    for (int i = 0; i <= n - m; i++) {
+      int j;
+
+      // For current index i, check for pattern match
+      for (j = 0; j < m; j++) {
+        if (text.charAt(i + j) != pattern.charAt(j)) {
+          break; // Mismatch found, break out of inner loop
+        }
+      }
+
+      // If the entire pattern matched, j will equal m
+      if (j == m) {
+        result.add(i);
+      }
+    }
+
+    return result;
+  }
+
+  public static void main(String[] args) {
+    // Example 1
+    String text1 = "geeksforgeeks";
+    String pattern1 = "geeks";
+    System.out.println("Text: " + text1 + " | Pattern: " + pattern1);
+    System.out.println("Output indices: " + search(text1, pattern1));
+
+    // Example 2
+    String text2 = "aabaacaadaabaaba";
+    String pattern2 = "aaba";
+    System.out.println("\nText: " + text2 + " | Pattern: " + pattern2);
+    System.out.println("Output indices: " + search(text2, pattern2));
+  }
+}
